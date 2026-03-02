@@ -96,6 +96,7 @@ function adoweb_scripts()
     $theme_path = get_template_directory();
 
     wp_enqueue_style('adoweb-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', [], '12.0.3');
+    wp_enqueue_style('adoweb-fancybox', $theme_uri . '/css/fancybox.css', ['adoweb-style'], filemtime($theme_path . '/css/fancybox.css'));
     wp_enqueue_style('adoweb-style', $theme_uri . '/css/style.css', ['adoweb-swiper'], filemtime($theme_path . '/css/style.css'));
     wp_enqueue_style('adoweb-custom', $theme_uri . '/css/custom.css', ['adoweb-style'], filemtime($theme_path . '/css/custom.css'));
 
@@ -104,6 +105,12 @@ function adoweb_scripts()
     wp_enqueue_script('jquery');
 
     wp_enqueue_script('adoweb-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', [], '12.0.3', true);
+    wp_enqueue_script('adoweb-customselect', $theme_uri . '/js/jquery.custom-select.js', ['jquery', 'adoweb-swiper'], filemtime($theme_path . '/js/jquery.custom-select.js'), true);
+    wp_enqueue_script('adoweb-fancybox', $theme_uri . '/js/jquery.fancybox.min.js', ['jquery', 'adoweb-swiper'], filemtime($theme_path . '/js/jquery.fancybox.min.js'), true);
+    wp_enqueue_script('adoweb-ui', 'https://code.jquery.com/ui/1.14.2/jquery-ui.js', [], '1.0.0', true);
+    wp_enqueue_script('adoweb-touchpunch', $theme_uri . '/js/jquery.ui.touch-punch.js', ['jquery', 'adoweb-swiper'], filemtime($theme_path . '/js/jquery.ui.touch-punch.js'), true);
+    wp_enqueue_script('adoweb-typewriter', $theme_uri . '/js/typewriter-effect.min.js', ['jquery', 'adoweb-swiper'], filemtime($theme_path . '/js/typewriter-effect.min.js'), true);
+    wp_enqueue_script('adoweb-splitter', $theme_uri . '/js/grapheme-splitter.min.js', ['jquery', 'adoweb-swiper'], filemtime($theme_path . '/js/grapheme-splitter.min.js'), true);
     wp_enqueue_script('adoweb-main', $theme_uri . '/js/main.js', ['jquery', 'adoweb-swiper'], filemtime($theme_path . '/js/main.js'), true);
     wp_enqueue_script('adoweb-custom', $theme_uri . '/js/custom.js', ['jquery'], filemtime($theme_path . '/js/custom.js'), true);
 }
