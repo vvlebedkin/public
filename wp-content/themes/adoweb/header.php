@@ -48,8 +48,10 @@
 		<div class="top_more">
 			<div class="top_more-wrapper">
 				<?php if ($top_banner_text): ?>
-					<img src="<?php echo esc_url(get_template_directory_uri() . '/img/top_more-text.svg'); ?>" alt="">
-					<div class="top_more-text"><?php echo wp_kses_post($top_banner_text); ?></div>
+
+					<div class="top_more-text">
+						<img src="<?php echo esc_url(get_template_directory_uri() . '/img/top_more-text.svg'); ?>" alt="">
+						<?php echo wp_kses_post($top_banner_text); ?></div>
 				<?php endif; ?>
 				<?php if ($top_banner_link): ?>
 					<a href="<?php echo esc_url($top_banner_link); ?>" class="top_more-btn" target="_blank" rel="noopener noreferrer">

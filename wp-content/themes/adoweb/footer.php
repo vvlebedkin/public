@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * The template for displaying the footer
  *
@@ -11,19 +11,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $adw_has_options = function_exists( 'carbon_get_theme_option' );
 
-$footer_logo_raw = $adw_has_options ? carbon_get_theme_option( 'crb_general_footer_logo' ) : '';
-$footer_logo_url = '';
+$footer_logo_raw      = $adw_has_options ? carbon_get_theme_option( 'crb_general_footer_logo' ) : '';
+$footer_logo_url      = '';
+$logo_text            = $adw_has_options ? carbon_get_theme_option( 'crb_general_logo_text' ) : '';
+$city                 = $adw_has_options ? carbon_get_theme_option( 'crb_general_city' ) : '';
+$footer_phones        = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_footer_phones' ) : array();
+$email                = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_email' ) : '';
+$footer_description   = $adw_has_options ? carbon_get_theme_option( 'crb_general_footer_description' ) : '';
+$footer_menu_title_1  = $adw_has_options ? carbon_get_theme_option( 'crb_footer_menu_title_1' ) : '';
+$footer_menu_title_2  = $adw_has_options ? carbon_get_theme_option( 'crb_footer_menu_title_2' ) : '';
+$footer_menu_title_3  = $adw_has_options ? carbon_get_theme_option( 'crb_footer_menu_title_3' ) : '';
+$footer_menu_title_4  = $adw_has_options ? carbon_get_theme_option( 'crb_footer_menu_title_4' ) : '';
+$socials              = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_socials' ) : array();
+
 if ( $footer_logo_raw ) {
 	$footer_logo_url = is_numeric( $footer_logo_raw ) ? wp_get_attachment_image_url( (int) $footer_logo_raw, 'full' ) : $footer_logo_raw;
 }
 
-$logo_text          = $adw_has_options ? carbon_get_theme_option( 'crb_general_logo_text' ) : '';
-$city               = $adw_has_options ? carbon_get_theme_option( 'crb_general_city' ) : '';
-$phone              = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_phone' ) : '';
-$email              = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_email' ) : '';
-$footer_description = $adw_has_options ? carbon_get_theme_option( 'crb_general_footer_description' ) : '';
-$requisites         = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_requisites' ) : array();
-$socials            = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_socials' ) : array();
+$footer_menus = array(
+	array(
+		'location'      => 'footer-menu-1',
+		'title'         => $footer_menu_title_1,
+		'title_in_span' => false,
+	),
+	array(
+		'location'      => 'footer-menu-2',
+		'title'         => $footer_menu_title_2,
+		'title_in_span' => false,
+	),
+	array(
+		'location'      => 'footer-menu-3',
+		'title'         => $footer_menu_title_3,
+		'title_in_span' => false,
+	),
+	array(
+		'location'      => 'footer-menu-4',
+		'title'         => $footer_menu_title_4,
+		'title_in_span' => true,
+	),
+);
 ?>
 
 <footer class="footer">
@@ -63,9 +89,13 @@ $socials            = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_
 					<div class="footer_messages">
 						<?php foreach ( $socials as $social ) : ?>
 							<?php
-							$link = isset( $social['link'] ) ? trim( (string) $social['link'] ) : '';
-							$icon = isset( $social['icon'] ) ? trim( (string) $social['icon'] ) : '';
-							if ( '' === $link || '' === $icon ) {
+							$link     = isset( $social['link'] ) ? trim( (string) $social['link'] ) : '';
+							$icon     = isset( $social['icon'] ) ? $social['icon'] : '';
+							$icon_url = '';
+							if ( $icon ) {
+								$icon_url = is_numeric( $icon ) ? wp_get_attachment_image_url( (int) $icon, 'full' ) : (string) $icon;
+							}
+							if ( '' === $link || '' === $icon_url ) {
 								continue;
 							}
 
@@ -83,45 +113,39 @@ $socials            = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_
 							}
 							?>
 							<a href="<?php echo esc_url( $href ); ?>" class="footer_message" target="_blank" rel="noopener noreferrer">
-								<?php
-								if ( false !== stripos( $icon, '<svg' ) ) {
-									echo wp_kses(
-										$icon,
-										array(
-											'svg'  => array(
-												'xmlns'       => true,
-												'width'       => true,
-												'height'      => true,
-												'viewbox'     => true,
-												'fill'        => true,
-												'stroke'      => true,
-												'role'        => true,
-												'aria-hidden' => true,
-											),
-											'path' => array(
-												'd'            => true,
-												'fill'         => true,
-												'stroke'       => true,
-												'stroke-width' => true,
-											),
-										)
-									);
-								} else {
-									echo '<img src="' . esc_url( $icon ) . '" alt="">';
-								}
-								?>
+								<img src="<?php echo esc_url( $icon_url ); ?>" alt="">
 							</a>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
 
-				<?php if ( $phone ) : ?>
-					<div class="footer_links">
-						<a href="tel:<?php echo esc_attr( function_exists( 'phone_format' ) ? phone_format( $phone ) : preg_replace( '/\D+/', '', $phone ) ); ?>" class="footer_number">
-							<?php echo esc_html( $phone ); ?>
-							<img src="<?php echo esc_url( get_template_directory_uri() . '/img/footer_number.svg' ); ?>" alt="">
-						</a>
-					</div>
+				<?php if ( ! empty( $footer_phones ) && is_array( $footer_phones ) ) : ?>
+					<?php foreach ( $footer_phones as $footer_phone_item ) : ?>
+						<?php
+						$footer_phone    = isset( $footer_phone_item['phone'] ) ? trim( (string) $footer_phone_item['phone'] ) : '';
+						$footer_subtitle = isset( $footer_phone_item['subtitle'] ) ? trim( (string) $footer_phone_item['subtitle'] ) : '';
+						$footer_mark     = isset( $footer_phone_item['subtitle_mark'] ) ? trim( (string) $footer_phone_item['subtitle_mark'] ) : '';
+						if ( '' === $footer_phone && '' === $footer_subtitle ) {
+							continue;
+						}
+						?>
+						<div class="footer_links">
+							<?php if ( $footer_phone ) : ?>
+								<a href="tel:<?php echo esc_attr( function_exists( 'phone_format' ) ? phone_format( $footer_phone ) : preg_replace( '/\D+/', '', $footer_phone ) ); ?>" class="footer_number">
+									<?php echo esc_html( $footer_phone ); ?>
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/img/footer_number.svg' ); ?>" alt="">
+								</a>
+							<?php endif; ?>
+							<?php if ( $footer_subtitle || $footer_mark ) : ?>
+								<div class="footer_links-subtitle">
+									<?php echo esc_html( $footer_subtitle ); ?>
+									<?php if ( $footer_mark ) : ?>
+										<span><?php echo esc_html( $footer_mark ); ?></span>
+									<?php endif; ?>
+								</div>
+							<?php endif; ?>
+						</div>
+					<?php endforeach; ?>
 				<?php endif; ?>
 
 				<?php if ( $email ) : ?>
@@ -138,44 +162,34 @@ $socials            = $adw_has_options ? carbon_get_theme_option( 'crb_contacts_
 			</div>
 
 			<div class="footer_items">
-				<div class="footer_item">
-					<div class="footer_item-title"><span>Навигация</span></div>
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'footer-menu',
-							'container'      => false,
-							'menu_class'     => 'footer_menu',
-							'fallback_cb'    => false,
-						)
-					);
-					?>
-				</div>
-
-				<?php if ( ! empty( $requisites ) && is_array( $requisites ) ) : ?>
-					<?php foreach ( $requisites as $item ) : ?>
+				<?php foreach ( $footer_menus as $footer_menu ) : ?>
+					<div class="footer_item">
+						<?php if ( ! empty( $footer_menu['title'] ) ) : ?>
+							<div class="footer_item-title">
+								<?php if ( ! empty( $footer_menu['title_in_span'] ) ) : ?>
+									<span><?php echo esc_html( $footer_menu['title'] ); ?></span>
+								<?php else : ?>
+									<?php echo esc_html( $footer_menu['title'] ); ?>
+								<?php endif; ?>
+							</div>
+						<?php endif; ?>
 						<?php
-						$req_title = isset( $item['title'] ) ? trim( (string) $item['title'] ) : '';
-						$req_text  = isset( $item['text'] ) ? trim( (string) $item['text'] ) : '';
-						if ( '' === $req_title && '' === $req_text ) {
-							continue;
-						}
+						wp_nav_menu(
+							array(
+								'theme_location' => $footer_menu['location'],
+								'container'      => false,
+								'menu_class'     => 'footer_menu',
+								'fallback_cb'    => false,
+							)
+						);
 						?>
-						<div class="footer_item">
-							<?php if ( $req_title ) : ?>
-								<div class="footer_item-title"><?php echo esc_html( $req_title ); ?></div>
-							<?php endif; ?>
-							<?php if ( $req_text ) : ?>
-								<div class="footer_item-subtitle"><?php echo esc_html( $req_text ); ?></div>
-							<?php endif; ?>
-						</div>
-					<?php endforeach; ?>
-				<?php endif; ?>
+					</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 
 		<div class="footer_inner">
-			<div class="footer_inner-item"><?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?></div>
+			<div class="footer_inner-item"><?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. Все права защищены.</div>
 			<?php if ( get_privacy_policy_url() ) : ?>
 				<a href="<?php echo esc_url( get_privacy_policy_url() ); ?>" class="footer_inner-item">Политика конфиденциальности</a>
 			<?php endif; ?>

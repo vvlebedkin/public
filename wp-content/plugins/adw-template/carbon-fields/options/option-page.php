@@ -31,20 +31,33 @@ Container::make( 'theme_options', 'Настройки темы' )
 			Field::make( 'text', 'crb_general_top_banner_link', 'Ссылка верхнего баннера' ),
 			Field::make( 'text', 'crb_general_top_banner_button', 'Текст ссылки верхнего баннера' ),
 			Field::make( 'textarea', 'crb_general_footer_description', 'Описание в подвале' ),
+			Field::make( 'text', 'crb_footer_menu_title_1', 'Заголовок меню футера 1' ),
+			Field::make( 'text', 'crb_footer_menu_title_2', 'Заголовок меню футера 2' ),
+			Field::make( 'text', 'crb_footer_menu_title_3', 'Заголовок меню футера 3' ),
+			Field::make( 'text', 'crb_footer_menu_title_4', 'Заголовок меню футера 4' ),
 			Field::make( 'text', 'crb_general_developer', 'Разработчик' ),
 		)
 	)
 	->add_tab(
 		'Контакты',
 		array(
-			Field::make( 'text', 'crb_contacts_phone', 'Телефон' ),
+			Field::make( 'text', 'crb_contacts_phone', 'Телефон в шапке' ),
+			Field::make( 'complex', 'crb_contacts_footer_phones', 'Телефоны в подвале' )
+				->set_layout( 'tabbed-horizontal' )
+				->add_fields(
+					array(
+						Field::make( 'text', 'phone', 'Телефон' ),
+						Field::make( 'text', 'subtitle', 'Подпись' ),
+						Field::make( 'text', 'subtitle_mark', 'Выделение в <span>' ),
+					)
+				),
 			Field::make( 'text', 'crb_contacts_email', 'E-mail' ),
 			Field::make( 'complex', 'crb_contacts_socials', 'Социальные сети' )
 				->set_layout( 'tabbed-horizontal' )
 				->add_fields(
 					array(
 						Field::make( 'text', 'link', 'Ссылка' ),
-						Field::make( 'textarea', 'icon', 'Иконка (SVG-код или URL картинки)' ),
+						Field::make( 'image', 'icon', 'Иконка' ),
 					)
 				),
 			Field::make( 'complex', 'crb_contacts_requisites', 'Реквизиты' )
