@@ -19,6 +19,14 @@ Container::make( 'theme_options', 'Настройки темы' )
 			Field::make( 'text', 'crb_general_delivery_text', 'Текст доставки в шапке' ),
 			Field::make( 'text', 'crb_general_city', 'Город' ),
 			Field::make( 'text', 'crb_general_address', 'Адрес' ),
+			Field::make( 'text', 'crb_general_header_place_current', 'Текущий пункт в шапке' ),
+			Field::make( 'complex', 'crb_general_header_places', 'Пункты в шапке' )
+				->set_layout( 'tabbed-horizontal' )
+				->add_fields(
+					array(
+						Field::make( 'text', 'title', 'Название пункта' ),
+					)
+				),
 			Field::make( 'textarea', 'crb_general_top_banner_text', 'Текст верхнего баннера' ),
 			Field::make( 'text', 'crb_general_top_banner_link', 'Ссылка верхнего баннера' ),
 			Field::make( 'text', 'crb_general_top_banner_button', 'Текст ссылки верхнего баннера' ),

@@ -102,6 +102,21 @@ function adoweb_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'adoweb_scripts' );
 
+function adw_template_mark_auction_menu_item( $items, $args ) {
+	if ( empty( $args->theme_location ) || 'header-menu' !== $args->theme_location ) {
+		return $items;
+	}
+
+	foreach ( $items as $item ) {
+		if ( 'Аукцион' === trim( wp_strip_all_tags( $item->title ) ) ) {
+			$item->classes[] = 'menu-item-has-auction-arrow';
+		}
+	}
+
+	return $items;
+}
+add_filter( 'wp_nav_menu_objects', 'adw_template_mark_auction_menu_item', 10, 2 );
+
 require get_template_directory() . '/inc/custom-header.php';
 require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/customizer.php';
