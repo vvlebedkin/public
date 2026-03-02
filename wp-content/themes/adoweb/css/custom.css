@@ -1,0 +1,26 @@
+/* start form 7 */
+
+.wpcf7-spinner{
+	display: none !important;
+}
+
+.wpcf7-not-valid{
+	border: 1px solid #dc3232;
+	background: rgba(220, 50, 50, .2);
+}
+.wpcf7-not-valid:hover{
+	border: 1px solid #dc3232 !important;	
+}
+.wpcf7-not-valid-tip{
+	display: none !important;
+}
+.wpcf7 form.invalid .wpcf7-response-output{
+	display: none !important;
+}
+
+
+.wpcf7 form.sent .wpcf7-response-output {
+  border-color: #4435f1;
+}
+
+/* eof form 7 */
