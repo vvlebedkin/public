@@ -82,6 +82,134 @@ Container::make( 'theme_options', 'Настройки темы' )
                 ),
         ]
     )
+    ->add_tab(
+        'Отзывы',
+        [
+            Field::make( 'separator', 'adw_reviews_block_separator', 'Блок: Отзывы' ),
+            Field::make( 'text', 'adw_reviews_block_title', 'Заголовок блока' )
+                ->set_default_value( 'Отзывы' ),
+            Field::make( 'text', 'adw_reviews_more_title', 'Заголовок нижнего блока ссылок' )
+                ->set_default_value( 'Больше отзывов о нас' ),
+            Field::make( 'complex', 'adw_reviews_slides', 'Слайды отзывов' )
+                ->set_layout( 'tabbed-horizontal' )
+                ->add_fields(
+                    [
+                        Field::make( 'select', 'slide_type', 'Тип слайда' )
+                            ->set_options(
+                                [
+                                    'car'      => 'Карточка авто',
+                                    'feedback' => 'Текстовый отзыв',
+                                ]
+                            )
+                            ->set_default_value( 'car' ),
+                        Field::make( 'text', 'link', 'Ссылка карточки' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'car',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'image', 'image', 'Изображение авто' )
+                            ->set_value_type( 'url' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'car',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'image', 'logo', 'Логотип карточки' )
+                            ->set_value_type( 'url' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'car',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'text', 'title', 'Заголовок карточки' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'car',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'text', 'subtitle', 'Подзаголовок карточки' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'car',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'image', 'avatar', 'Аватар автора отзыва' )
+                            ->set_value_type( 'url' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'feedback',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'text', 'name', 'Имя автора отзыва' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'feedback',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'image', 'rating', 'Изображение рейтинга' )
+                            ->set_value_type( 'url' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'feedback',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                        Field::make( 'textarea', 'text', 'Текст отзыва' )
+                            ->set_conditional_logic(
+                                [
+                                    [
+                                        'field'   => 'slide_type',
+                                        'value'   => 'feedback',
+                                        'compare' => '=',
+                                    ],
+                                ]
+                            ),
+                    ]
+                ),
+            Field::make( 'complex', 'adw_reviews_more_links', 'Ссылки внизу блока' )
+                ->set_layout( 'tabbed-horizontal' )
+                ->add_fields(
+                    [
+                        Field::make( 'image', 'icon', 'Иконка сервиса' )
+                            ->set_value_type( 'url' ),
+                        Field::make( 'text', 'title', 'Название сервиса' ),
+                        Field::make( 'text', 'url', 'Ссылка' ),
+                    ]
+                ),
+        ]
+    )
     ->add_tab( 'Блок: Оставьте заявку', [
         Field::make( 'separator', 'adw_sep_contacts', 'Контакты' ),
         Field::make( 'text', 'adw_contact_phone', 'Главный телефон' )
