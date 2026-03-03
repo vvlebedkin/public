@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ADW Template
- * Description: Этот плагин делает мир лучше.
+ * Description: This plugin improves the world.
  * Version: 1.1.0
  * Author: Lebedkin Vladislav
  * Text Domain: https://lebedkin.com
@@ -32,6 +32,7 @@ function adw_template_register_custom_fields()
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/faq-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/blog-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/order-person-block.php';
+    require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/social-block.php';
 }
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
