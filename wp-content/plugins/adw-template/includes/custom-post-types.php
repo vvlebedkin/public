@@ -49,6 +49,36 @@ function adw_template_register_post_types_and_taxonomies() {
         ]
     );
 
+    register_post_type(
+        'clients',
+        [
+            'labels' => [
+                'name'               => __( 'Клиенты', 'adw-template' ),
+                'singular_name'      => __( 'Клиент', 'adw-template' ),
+                'add_new'            => __( 'Добавить клиента', 'adw-template' ),
+                'add_new_item'       => __( 'Добавить клиента', 'adw-template' ),
+                'edit_item'          => __( 'Редактировать клиента', 'adw-template' ),
+                'new_item'           => __( 'Новый клиент', 'adw-template' ),
+                'view_item'          => __( 'Смотреть клиента', 'adw-template' ),
+                'search_items'       => __( 'Искать клиентов', 'adw-template' ),
+                'not_found'          => __( 'Клиенты не найдены', 'adw-template' ),
+                'not_found_in_trash' => __( 'В корзине клиентов нет', 'adw-template' ),
+                'menu_name'          => __( 'Клиенты', 'adw-template' ),
+            ],
+            'public'              => true,
+            'has_archive'         => true,
+            'rewrite'             => [ 'slug' => 'clients' ],
+            'menu_icon'           => 'dashicons-groups',
+            'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
+            'show_in_rest'        => false,
+            'publicly_queryable'  => true,
+            'show_ui'             => true,
+            'show_in_nav_menus'   => true,
+            'exclude_from_search' => false,
+            'taxonomies'          => [],
+        ]
+    );
+
     register_taxonomy(
         'blog-category',
         [ 'blog' ],
@@ -77,7 +107,7 @@ function adw_template_register_post_types_and_taxonomies() {
 
 add_filter( 'use_block_editor_for_post_type', 'adw_template_disable_gutenberg_for_blog', 10, 2 );
 function adw_template_disable_gutenberg_for_blog( $use_block_editor, $post_type ) {
-    if ( 'blog' === $post_type ) {
+    if ( in_array( $post_type, [ 'blog', 'clients' ], true ) ) {
         return false;
     }
 
