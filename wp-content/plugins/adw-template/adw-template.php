@@ -35,6 +35,7 @@ function adw_template_register_custom_fields()
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/order-person-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/social-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/reviews-block.php';
+    require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/guarantee-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/comprehensive-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/checking-block.php';
 }

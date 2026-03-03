@@ -210,6 +210,31 @@ Container::make( 'theme_options', 'Настройки темы' )
                 ),
         ]
     )
+    ->add_tab(
+        'Гарантии',
+        [
+            Field::make( 'separator', 'adw_guarantee_block_separator', 'Блок: Гарантии' ),
+            Field::make( 'rich_text', 'adw_guarantee_block_title', 'Заголовок блока' )
+                ->set_default_value( 'ГАРАНТИЯ 2 года <br> на все авто' ),
+            Field::make( 'image', 'adw_guarantee_main_image', 'Изображение слева' )
+                ->set_value_type( 'url' ),
+            Field::make( 'textarea', 'adw_guarantee_right_title', 'Заголовок правой части' )
+                ->set_default_value( 'Условия действия гарантии на двигатель и КПП' ),
+            Field::make( 'complex', 'adw_guarantee_items', 'Пункты гарантий' )
+                ->set_layout( 'tabbed-horizontal' )
+                ->add_fields(
+                    [
+                        Field::make( 'image', 'icon', 'Иконка пункта' )
+                            ->set_value_type( 'url' ),
+                        Field::make( 'textarea', 'title', 'Текст пункта' ),
+                    ]
+                ),
+            Field::make( 'text', 'adw_guarantee_button_text', 'Текст кнопки' )
+                ->set_default_value( 'Скачать образец договора' ),
+            Field::make( 'file', 'adw_guarantee_button_url', 'Файл кнопки' )
+                ->set_value_type( 'url' ),
+        ]
+    )
     ->add_tab( 'Блок: Оставьте заявку', [
         Field::make( 'separator', 'adw_sep_contacts', 'Контакты' ),
         Field::make( 'text', 'adw_contact_phone', 'Главный телефон' )
