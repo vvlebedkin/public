@@ -179,17 +179,32 @@ $(document).ready(function () {
     });
 
 
-    var slides_count = document.getElementsByClassName("advantages_slide");
     const advantagesSlider = new Swiper('.advantages_slider', {
         runCallbacksOnInit: true,
         on: {
             init: function () {
                 var offer = document.querySelector('.advantages_slide-counter');
-                offer.innerHTML = '<span>0' + (this.activeIndex + 1) + '</span>' + ' <span>/</span> 0' + slides_count.length;
+                if (!offer) return;
+                var totalSlides = Array.from(this.slides || []).filter(function (slide) {
+                    return !slide.classList.contains('swiper-slide-duplicate');
+                }).length;
+                if (!totalSlides) {
+                    totalSlides = (this.slides || []).length;
+                }
+                var currentSlide = (typeof this.realIndex === 'number' ? this.realIndex : this.activeIndex) + 1;
+                offer.innerHTML = '<span>' + String(currentSlide).padStart(2, '0') + '</span>' + ' <span>/</span> ' + String(totalSlides).padStart(2, '0');
             },
             slideChange: function () {
                 var offer = document.querySelector('.advantages_slide-counter');
-                offer.innerHTML = '<span>0' + (this.activeIndex + 1) + '</span>' + ' <span>/</span> 0' + slides_count.length;
+                if (!offer) return;
+                var totalSlides = Array.from(this.slides || []).filter(function (slide) {
+                    return !slide.classList.contains('swiper-slide-duplicate');
+                }).length;
+                if (!totalSlides) {
+                    totalSlides = (this.slides || []).length;
+                }
+                var currentSlide = (typeof this.realIndex === 'number' ? this.realIndex : this.activeIndex) + 1;
+                offer.innerHTML = '<span>' + String(currentSlide).padStart(2, '0') + '</span>' + ' <span>/</span> ' + String(totalSlides).padStart(2, '0');
             }
         }
     })

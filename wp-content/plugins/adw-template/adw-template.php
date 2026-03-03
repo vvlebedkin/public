@@ -40,8 +40,10 @@ function adw_template_register_custom_fields()
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/checking-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/main-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/main-page-hero-block.php';
+    require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/advantages-block.php';
 }
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
     require_once plugin_dir_path(__FILE__) . 'woocommerce/woo-functions.php';
 }
+
