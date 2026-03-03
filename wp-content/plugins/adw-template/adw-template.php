@@ -38,6 +38,7 @@ function adw_template_register_custom_fields()
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/guarantee-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/comprehensive-block.php';
     require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/checking-block.php';
+    require_once plugin_dir_path(__FILE__) . 'carbon-fields/blocks/main-block.php';
 }
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
